@@ -11,10 +11,10 @@ def fitness(x, y):
     return val
 
 def addRandom(x ,coefR, min, max):
-    # random number will be normally distributed over mean of the parents with std of 4
+    # random number will be normally distributed over mean of the parents with std of 50
     if random.random() < coefR:
         mean = statistics.mean(x)
-        randomn = random.gauss(mean,4)
+        randomn = random.gauss(mean, 50)
         if randomn < min:
             randomn = min
         elif randomn > max:
@@ -44,19 +44,26 @@ def newGen(parents, n, rand):
     return sampling
 
 def colorGen(color, n, rand):
-    #setting random color
-    colors = [(random.randint(0,255), random.randint(0,255), random.randint(0,255)) for i in range(10)]
+    #import csv
+    #with open('colors.csv', 'w', newline='') as file:
+        #writer = csv.writer(file)
+        #setting random color
+        colors = [(random.randint(0,255), random.randint(0,255), random.randint(0,255)) for i in range(10)]
 
-    # fitting
-    for i in range(n):
-        a = getBest(colors, color, 2)
-        colors = newGen(a, 10, rand)
+        # fitting
+        for i in range(n):
+            a = getBest(colors, color, 2)
+            #writer.writerow([a[0][0], a[0][1], a[0][2]])
+            colors = newGen(a, 10, rand)
+            
 
-    #taking best color 
-    final = getBest(colors, color, 1)[0]
-    fit = fitness(final, color)
-    print("Color:", final, "SSE:", fit, sep= " ")
+        #taking best color 
+        final = getBest(colors, color, 1)[0]
+        fit = fitness(final, color)
+        print("Color:", final, "SSE:", fit, sep= " ")
 
-color = (10,10,10)
-colorGen(color, 500, 0.2)
+color = (100,255,0)
+colorGen(color, 50, 0.2)
 
+
+    
